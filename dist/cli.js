@@ -78,7 +78,7 @@ function guardOutputDir(outputDir) {
         throw new cli_1.default(`build directory can not be the current or direct parent directory: ${outputDir}`);
     }
 }
-module.exports = function broccoliCLI(args, ui = new console_ui_1.default()) {
+module.exports = async function broccoliCLI(args, ui = new console_ui_1.default()) {
     // always require a fresh commander, as it keeps state at module scope
     delete require.cache[require.resolve('commander')];
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -216,7 +216,7 @@ module.exports = function broccoliCLI(args, ui = new console_ui_1.default()) {
             }
         })();
     });
-    program.parse(args || process.argv);
+    await program.parseAsync(args || process.argv);
     if (actionPromise) {
         return actionPromise;
     }

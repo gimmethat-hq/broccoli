@@ -120,7 +120,7 @@ function guardOutputDir(outputDir: string) {
   }
 }
 
-export = function broccoliCLI(args: string[], ui = new UI()) {
+export = async function broccoliCLI(args: string[], ui = new UI()) {
   // always require a fresh commander, as it keeps state at module scope
   delete require.cache[require.resolve('commander')];
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -290,7 +290,7 @@ export = function broccoliCLI(args: string[], ui = new UI()) {
       })();
     });
 
-  program.parse(args || process.argv);
+  await program.parseAsync(args || process.argv);
 
   if (actionPromise) {
     return actionPromise;
